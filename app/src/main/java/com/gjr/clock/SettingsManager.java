@@ -16,6 +16,7 @@ public class SettingsManager {
     public boolean is24Hour() {
         return sp.getBoolean(KEY_24H, true);
     }
+
     public void set24Hour(boolean b) {
         sp.edit().putBoolean(KEY_24H, b).apply();
     }
@@ -23,7 +24,7 @@ public class SettingsManager {
     public boolean isNightMode() {
         return sp.getBoolean(KEY_NIGHT, true);
     }
-    // ✅ 这里！使用传入的b，不再写死true！
+
     public void setNightMode(boolean b) {
         sp.edit().putBoolean(KEY_NIGHT, b).apply();
     }
