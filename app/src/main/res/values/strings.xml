@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Clock</string>
+    <string name="btn_1224">12/24小时制</string>
+    <string name="btn_theme">切换主题</string>
 </resources>
