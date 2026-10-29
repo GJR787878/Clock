@@ -46,14 +46,13 @@ public class ClockActivity extends AppCompatActivity {
 
         settingsManager = new SettingsManager(this);
         is24Hour = settingsManager.is24Hour();
-        sdfDate = new SimpleDateFormat("yyyy-MM-dd EEEE", Locale.getDefault());
-        rebuildTimeFormat();
+        rebuildFormats();
         applyTheme();
 
         btn1224.setOnClickListener(v -> {
             is24Hour = !is24Hour;
             settingsManager.set24Hour(is24Hour);
-            rebuildTimeFormat();
+            rebuildFormats();
             updateTime();
         });
         btnTheme.setOnClickListener(v -> {
@@ -62,9 +61,11 @@ public class ClockActivity extends AppCompatActivity {
         });
     }
 
-    private void rebuildTimeFormat() {
-        String pattern = is24Hour ? "HH:mm:ss" : "hh:mm:ss a";
-        sdfTime = new SimpleDateFormat(pattern, Locale.getDefault());
+    // SimpleDateFormat 会在创建时固定时区，所以每次回到前台都重建一次
+    private void rebuildFormats() {
+        Locale locale = Locale.getDefault();
+        sdfTime = new SimpleDateFormat(is24Hour ? "HH:mm:ss" : "hh:mm:ss a", locale);
+        sdfDate = new SimpleDateFormat("yyyy-MM-dd EEEE", locale);
     }
 
     private void applyTheme() {
@@ -74,15 +75,17 @@ public class ClockActivity extends AppCompatActivity {
     }
 
     private void updateTime() {
-        Date now = new Date();
+        long ms = System.currentTimeMillis();
+        Date now = new Date(ms);
         tvTime.setText(sdfTime.format(now));
         tvDate.setText(sdfDate.format(now));
-        clockFace.updateTime();
+        clockFace.updateTime(ms);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        rebuildFormats();
         handler.post(timeRunnable);
     }
 
