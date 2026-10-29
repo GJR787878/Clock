@@ -50,7 +50,7 @@ public class ClockActivity extends AppCompatActivity {
     private void updateTime() {
         String timePattern = is24Hour ? "HH:mm:ss" : "hh:mm:ss a";
         SimpleDateFormat sdfTime = new SimpleDateFormat(timePattern, Locale.getDefault());
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd EEEE", Locale.getDefault());
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy‑MM‑dd EEEE", Locale.getDefault());
         Date now = new Date();
         tvTime.setText(sdfTime.format(now));
         tvDate.setText(sdfDate.format(now));
