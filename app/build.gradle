@@ -27,5 +27,5 @@ android {
 }
 
 dependencies {
-    // 移除 glassbutton 依赖，只用原生SDK
+    // 无外部依赖
 }
