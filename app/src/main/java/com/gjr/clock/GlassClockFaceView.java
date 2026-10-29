@@ -6,9 +6,11 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class GlassClockFaceView extends View {
     private final Paint mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint mTickPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mHourPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mMinPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mSecPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -38,6 +40,9 @@ public class GlassClockFaceView extends View {
         mCirclePaint.setStyle(Paint.Style.STROKE);
         mCirclePaint.setStrokeWidth(3f * mDensity);
 
+        mTickPaint.setStrokeWidth(2f * mDensity);
+        mTickPaint.setStrokeCap(Paint.Cap.ROUND);
+
         mHourPaint.setStrokeWidth(5f * mDensity);
         mHourPaint.setStrokeCap(Paint.Cap.ROUND);
 
@@ -53,10 +58,12 @@ public class GlassClockFaceView extends View {
     private void applyColors() {
         if (mNight) {
             mCirclePaint.setColor(0x66FFFFFF);
+            mTickPaint.setColor(0x99FFFFFF);
             mHourPaint.setColor(0xFFFFFFFF);
             mMinPaint.setColor(0xFFDDDDDD);
         } else {
             mCirclePaint.setColor(0x66000000);
+            mTickPaint.setColor(0x99000000);
             mHourPaint.setColor(0xFF111111);
             mMinPaint.setColor(0xFF444444);
         }
@@ -70,8 +77,9 @@ public class GlassClockFaceView extends View {
         invalidate();
     }
 
-    public void updateTime() {
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
+    public void updateTime(long millis) {
+        mCalendar.setTimeZone(TimeZone.getDefault());
+        mCalendar.setTimeInMillis(millis);
         invalidate();
     }
 
@@ -89,6 +97,7 @@ public class GlassClockFaceView extends View {
         float cy = getPaddingTop() + (getHeight() - getPaddingTop() - getPaddingBottom()) / 2f;
 
         canvas.drawCircle(cx, cy, mRadius, mCirclePaint);
+        drawTicks(canvas, cx, cy);
 
         int h = mCalendar.get(Calendar.HOUR); // 已经是 0-11
         int m = mCalendar.get(Calendar.MINUTE);
@@ -98,11 +107,23 @@ public class GlassClockFaceView extends View {
         float minAngle = (m + s / 60f) * 6f;
         float secAngle = s * 6f;
 
-        drawHand(canvas, cx, cy, hourAngle, mRadius * 0.55f, mHourPaint);
+        drawHand(canvas, cx, cy, hourAngle, mRadius * 0.50f, mHourPaint);
         drawHand(canvas, cx, cy, minAngle, mRadius * 0.70f, mMinPaint);
-        drawHand(canvas, cx, cy, secAngle, mRadius * 0.80f, mSecPaint);
+        drawHand(canvas, cx, cy, secAngle, mRadius * 0.78f, mSecPaint);
 
         canvas.drawCircle(cx, cy, 4f * mDensity, mDotPaint);
+    }
+
+    private void drawTicks(Canvas canvas, float cx, float cy) {
+        for (int i = 0; i < 12; i++) {
+            double rad = Math.toRadians(i * 30 - 90);
+            float cos = (float) Math.cos(rad);
+            float sin = (float) Math.sin(rad);
+            float inner = mRadius * (i % 3 == 0 ? 0.82f : 0.90f);
+            float outer = mRadius * 0.96f;
+            canvas.drawLine(cx + cos * inner, cy + sin * inner,
+                    cx + cos * outer, cy + sin * outer, mTickPaint);
+        }
     }
 
     private void drawHand(Canvas canvas, float cx, float cy, float angle, float len, Paint paint) {
