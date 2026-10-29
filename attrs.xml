@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 给表盘预留自定义属性，后续扩展用 -->
+    <declare-styleable name="GlassClockFaceView">
+        <attr name="clockCircleColor" format="color"/>
+        <attr name="clockHourColor" format="color"/>
+        <attr name="clockMinColor" format="color"/>
+        <attr name="clockSecColor" format="color"/>
+    </declare-styleable>
+</resources>
