@@ -18,7 +18,11 @@ public class NightModeHelper {
 
         Window window = activity.getWindow();
         window.setStatusBarColor(bg);
-        new WindowInsetsControllerCompat(window, window.getDecorView())
-                .setAppearanceLightStatusBars(!isNight);
+        window.setNavigationBarColor(bg);
+
+        WindowInsetsControllerCompat controller =
+                new WindowInsetsControllerCompat(window, window.getDecorView());
+        controller.setAppearanceLightStatusBars(!isNight);
+        controller.setAppearanceLightNavigationBars(!isNight);
     }
 }
