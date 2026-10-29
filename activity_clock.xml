@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="24dp"
+    android:background="#121214">
+
+    <com.gjr.clock.GlassClockFaceView
+        android:id="@+id/clock_face"
+        android:layout_width="240dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:textColor="#FFFFFF"
+        android:textSize="64sp"
+        android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2026-01-01 星期四"
+        android:textColor="#CCCCCC"
+        android:textSize="18sp"
+        android:layout_marginTop="12dp"/>
+
+    <RadioGroup
+        android:id="@+id/rg_format"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="32dp">
+
+        <com.gjr.glassbutton.GlassRadioButton
+            android:id="@+id/rb_24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="24小时制"
+            app:glassCornerRadius="28dp"/>
+
+        <com.gjr.glassbutton.GlassRadioButton
+            android:id="@+id/rb_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12小时制"
+            app:glassCornerRadius="28dp"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <com.gjr.glassbutton.GlassCapsuleButton
+            android:id="@+id/btn_keep_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开启常亮"
+            app:glassSelected="false"
+            app:glassCornerRadius="28dp"/>
+
+        <com.gjr.glassbutton.GlassCapsuleButton
+            android:id="@+id/btn_night_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="夜间模式"
+            app:glassSelected="false"
+            app:glassCornerRadius="28dp"
+            android:layout_marginStart="16dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="字体大小"
+            android:textColor="#ffffff"/>
+        <SeekBar
+            android:id="@+id/seek_font"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:max="100"
+            android:progress="64"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.gjr.glassbutton.GlassNavBar
+        android:id="@+id/glass_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
