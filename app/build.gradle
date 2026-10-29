@@ -27,5 +27,5 @@ android {
 }
 
 dependencies {
-    // 无外部依赖
+    //无任何外部依赖
 }
