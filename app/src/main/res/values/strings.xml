@@ -3,4 +3,9 @@
     <string name="app_name">Clock</string>
     <string name="btn_1224">12/24小时制</string>
     <string name="btn_theme">切换主题</string>
+    <string name="btn_24">24小时制</string>
+    <string name="btn_12">12小时制</string>
+    <string name="btn_night">夜间模式</string>
+    <string name="btn_day">日间模式</string>
+    <string name="label_font_size">字体大小</string>
 </resources>

@@ -10,8 +10,8 @@ android {
         applicationId "com.gjr.clock"
         minSdk 24
         targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1.0"
     }
 
     buildTypes {
@@ -29,4 +29,6 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
+    // 毛玻璃胶囊组件（手册 §8）：按钮/开关统一用组件库，不手写仿制
+    implementation 'com.github.GJR787878:GlassButtons:v1.0.5'
 }

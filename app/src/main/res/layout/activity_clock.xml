@@ -1,60 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
+    android:fillViewport="true"
     android:keepScreenOn="true"
+    android:scrollbars="none"
     android:background="@color/black">
 
-    <com.gjr.clock.GlassClockFaceView
-        android:id="@+id/clockFace"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginBottom="24dp"/>
-
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="match_parent"
-        android:layout_height="88dp"
-        android:gravity="center"
-        android:maxLines="1"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:textColor="@color/white"
-        android:textSize="56sp"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="24sp"
-        app:autoSizeMaxTextSize="56sp"
-        app:autoSizeStepGranularity="2sp"/>
-
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="40dp">
+        android:orientation="vertical"
+        android:gravity="center"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="32dp"
+        android:paddingBottom="32dp">
 
-        <Button
+        <com.gjr.clock.GlassClockFaceView
+            android:id="@+id/clockFace"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxLines="1"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textColor="@color/white"
+            android:textSize="56sp"
+            app:autoSizeTextType="uniform"
+            app:autoSizeMinTextSize="24sp"
+            app:autoSizeMaxTextSize="120sp"
+            app:autoSizeStepGranularity="1sp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/tvFontLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="start"
+            android:text="@string/label_font_size"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <SeekBar
+                android:id="@+id/seekFont"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="88"
+                android:progress="32" />
+
+            <TextView
+                android:id="@+id/tvFontValue"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="64"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <com.gjr.glassbutton.GlassCapsuleButton
             android:id="@+id/btn1224"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_1224"/>
+            android:layout_marginTop="20dp"
+            android:text="@string/btn_24"
+            app:glassCornerRadius="28dp" />
 
-        <Button
+        <com.gjr.glassbutton.GlassCapsuleButton
             android:id="@+id/btnTheme"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/btn_theme"
-            android:layout_marginStart="16dp"/>
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_night"
+            app:glassCornerRadius="28dp" />
     </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

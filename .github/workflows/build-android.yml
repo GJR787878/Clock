@@ -2,10 +2,11 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*' ]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -22,10 +23,10 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: '8.7'
+          gradle-version: '8.9'
 
       - name: Build Debug APK
-        run: gradle assembleDebug
+        run: gradle assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -33,3 +34,20 @@ jobs:
           name: Clock-APK
           path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
+
+      # 构建成功后发布 Release，APK 可直接下载
+      - name: Publish Release
+        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/')
+        continue-on-error: true
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.1.0
+          name: Clock v1.1.0
+          body: |
+            - 新增字体大小滑块（32–120sp，实时生效并保存）
+            - 新增平板（sw600dp）重排适配：左右布局 + 760dp 内容上限 + 按钮横排
+            - 屏幕常亮加固：窗口 KEEP_SCREEN_ON + 布局 keepScreenOn 双保险
+            - 按钮统一为毛玻璃胶囊（GlassButtons v1.0.5），显示当前状态
+            - 保留 24 小时制 / 12 小时制切换
+            - 保留日间 / 夜间模式切换
+          files: app/build/outputs/apk/debug/app-debug.apk
